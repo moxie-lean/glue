@@ -1,4 +1,4 @@
-<?php
+<?php namespace glue;
 /**
  *	Plugin Name: Glue
  *	Plugin URI: https://github.com/mitogh/glue
@@ -7,3 +7,9 @@
  *	Author: Crisoforo Gaspar Hernandez
  *	Author URI: https://github.com/mitogh
  */
+
+if ( ! defined( 'WPINC') ) {
+  die;
+}
+
+require_once plugin_dir_path( __FILE__ ) . 'class-view.php';
