@@ -12,4 +12,7 @@ if ( ! defined( 'WPINC') ) {
   die;
 }
 
-require_once plugin_dir_path( __FILE__ ) . 'class-view.php';
+$plugin_dir = plugin_dir_path( __FILE__ );
+
+require_once  $plugin_dir . 'class-file-handle.php';
+require_once  $plugin_dir . 'class-view.php';
