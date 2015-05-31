@@ -8,10 +8,6 @@
 !/wp-content/
 wp-content/*
 
-!/wp-content/themes/
-/wp-content/themes/*
-
-!/wp-content/themes/glue-example
 
 !/wp-content/plugins/
 /wp-content/plugins/*
