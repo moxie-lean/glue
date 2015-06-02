@@ -60,6 +60,10 @@ class FileHandle {
 		}
 	}
 
+	public function exists(){
+		return file_exists( $this->path );
+	}
+
 	/**
 	 * Getter of the path variable
 	 *
