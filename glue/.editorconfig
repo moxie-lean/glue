@@ -1,0 +1,15 @@
+# top-most EditorConfig file
+root=true
+
+# Global
+# UTF-8, Unix-style newlines, newline ending every file, trim trailing whitespace
+[*]
+charset=utf-8
+end_of_line=lf
+insert_final_newline=true
+trim_trailing_whitespace=true
+
+[{*.php, *.css,*.scss, *.html, *.js}]
+indent_style=tab
+indent_size=4
+
