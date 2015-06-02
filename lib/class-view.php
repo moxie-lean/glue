@@ -12,7 +12,7 @@ class View {
 	/**
 	 * Constructor of the object and FileHandle.
 	 *
-	 * @param   String  Path to the file
+	 * @param   String  $filename	Path to the file
 	 */
 	public function __construct( $filename = '' ) {
 		$this->data = array();
@@ -22,8 +22,8 @@ class View {
 	/**
 	 * Static method to create the View object
 	 *
-	 * @param   String    Path to the file
-	 * @return  View      Return the current object (View);
+	 * @param   String  $filename	Path to the file
+	 * @return  View    $view		Return the current object (View);
 	 */
 	public static function make( $filename = '' ) {
 		$view = new View( $filename );
@@ -59,6 +59,8 @@ class View {
 	 * Magic method to allows user retrive the data with the sintax $this->data like:
 	 * $view->title, outpus the $title withoth using echo;
 	 *
+	 * @param	string	$key	key to retrieve from the data array.
+	 * @return	none			Outputs directly the data using echo.
 	 */
 	public function __get( $key = '' ){
 		if ( $this->exist( $key ) ) {
@@ -66,12 +68,17 @@ class View {
 		}
 	}
 
+	/**
+	 * @param	string	$key		They key to search in the data array.
+	 * @return	mixed	$result		Return the data of the data using the key or
+	 *								false if the key does not exist.
+	 */
 	public function get( $key = '' ) {
+		$result = false;
 		if( $this->exist( $key ) ) {
-			return $this->data[ $key ];
-		} else {
-			return false;
+			$result = $this->data[ $key ];
 		}
+		return $result;
 	}
 
 	/**
@@ -92,7 +99,9 @@ class View {
 	public function render(){
 		extract( $this->data );
 		$view = $this;
-		include $this->file_handle->get_fullpath();
+		if ( $this->file_handle->exists() ) {
+			include $this->file_handle->get_fullpath();
+		}
 	}
 
 	/**
@@ -104,6 +113,44 @@ class View {
 	 */
 	public function has( $variable = '' ){
 		return isset( $variable ) && $variable;
+	}
+
+	/**
+	 * Test if all the variables in the array list exist and are true
+	 *
+	 * @param	array		$variable	The list of variables to test in
+	 * @return	boolean		$result		Apply `and` condition over all the variables
+	 *									return true if all the variables in the list
+	 *									exist.
+	 */
+	public function has_all( $variables = array() ) {
+		$result = true;
+		foreach ( (array) $variables as $variable ){
+			if ( ! $this->has( $variable) ){
+				$result = false;
+				break;
+			}
+		}
+		return $result;
+	}
+
+	/**
+	 * Test if any oft he variables in the array list exist and are true
+	 *
+	 * @param	array		$variable	The list of variables to test in
+	 * @return	boolean		$result		Apply `or` condition over all the variables
+	 *									return true if any the variables in the list
+	 *									exist.
+	 */
+	public function has_any( $variables = array() ) {
+		$result = false;
+		foreach ( (array) $variables as $variable ){
+			if ( $this->has( $variable) ){
+				$result = true;
+				break;
+			}
+		}
+		return $result;
 	}
 }
 
