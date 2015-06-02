@@ -9,7 +9,7 @@
  */
 
 if ( ! defined( 'WPINC') ) {
-  die;
+	die;
 }
 
 $plugin_dir = plugin_dir_path( __FILE__ );
