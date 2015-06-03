@@ -58,7 +58,7 @@ class View {
 	/**
 	 * Public method to render a collection, as an example a collection of Views
 	 *
-	 * @param   Array	$collection    They key to set.
+	 * @param	Array	$collection		They key to set.
 	 * @param	Array	$options		The callback options to render while the iterate over
 	 *									the collection. Avilable callbaks as follows:
 	 *										array(
@@ -150,9 +150,9 @@ class View {
 	 * better readability instead of $this, after that loads the file.
 	 */
 	public function render(){
-		extract( $this->data );
-		$view = $this;
 		if ( $this->file_handle->exists() ) {
+			extract( $this->data );
+			$view = $this;
 			include $this->file_handle->get_fullpath();
 		}
 	}
