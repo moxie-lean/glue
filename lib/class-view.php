@@ -56,6 +56,59 @@ class View {
 	}
 
 	/**
+	 * Public method to render a collection, as an example a collection of Views
+	 *
+	 * @param   Array	$collection    They key to set.
+	 * @param	Array	$options		The callback options to render while the iterate over
+	 *									the collection. Avilable callbaks as follows:
+	 *										array(
+	 *											'before_loop' => function(){}
+	 *											'before_view' => function(){}
+	 *											'after_view' => function(){}
+	 *											'after_loop' => function(){}
+	 *										);
+	 */
+	public function render_collection( $collection = array(), $options = array() ) {
+		if ( is_array( $collection ) ) {
+			$this->call_option('before_loop', $options);
+			foreach( $collection as $view ) {
+				$this->call_option('before_view', $options);
+
+				if ( $view instanceof \glue\View ){
+					$view->render();
+				}
+				$this->call_option('after_view', $options);
+			}
+			$this->call_option('after_loop', $options);
+		}
+	}
+
+	/**
+	 * Call a callback inside of an array.
+	 *
+	 * @param	String	$key		The name of the key in the asociative array.
+	 * @param	Array	$options	Asociative array where the callback is stored.
+	 */
+	private function call_option( $key = '', $options = array() ){
+		if ( $this->it_has_callback($key, $options) ){
+			call_user_func( $options[ $key ] );
+		}
+	}
+
+	/**
+	 * Function to test if an asociative array has callable function in the $key
+	 * position.
+	 *
+	 * @param	String	$key		The name of the key in the asociative array.
+	 * @param	Array	$options	Asociative array where search.
+	 * @return	bool				Returns true if it has the key inside of $data
+	 *								and if it's callable if not return false.
+	 */
+	private function it_has_callback( $key = '', $data = array() ) {
+		return is_array( $data ) && array_key_exists($key, $data) && is_callable( $data[$key] );
+	}
+
+	/**
 	 * Magic method to allows user retrive the data with the sintax $this->data like:
 	 * $view->title, outpus the $title withoth using echo;
 	 *
