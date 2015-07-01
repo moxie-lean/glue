@@ -13,5 +13,18 @@ class View extends ViewProvider{
 		$this->data = array();
 		$this->file_handle = new FileHandle( $filename );
 	}
+
+	/**
+	 * Static method to create the View object
+	 *
+	 * @param   String  $filename	Path to the file
+	 * @return  View    $view		Return the current object (View);
+	 */
+	public static function make( $filename = '' ) {
+		$view = new View( $filename );
+		// Process the file
+		$view->file_handle->process();
+		return $view;
+	}
 }
 

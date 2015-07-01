@@ -7,19 +7,6 @@ class ViewProvider  extends ViewUtil{
 	protected $file_handle;
 
 	/**
-	 * Static method to create the View object
-	 *
-	 * @param   String  $filename	Path to the file
-	 * @return  View    $view		Return the current object (View);
-	 */
-	public static function make( $filename = '' ) {
-		$view = new View( $filename );
-		// Process the file
-		$view->file_handle->process();
-		return $view;
-	}
-
-	/**
 	 * Render the view and creates a list of variables based on the values pased
 	 * to the view with the methods set and with, also creates a $view variable to
 	 * better readability instead of $this, after that loads the file.
