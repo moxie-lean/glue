@@ -14,7 +14,15 @@ if ( ! defined( 'WPINC') ) {
 
 $plugin_dir = plugin_dir_path( __FILE__ );
 
+require_once  $plugin_dir . 'lib/class-error-handler.php';
 require_once  $plugin_dir . 'lib/class-file-handle.php';
 require_once  $plugin_dir . 'lib/class-view-util.php';
 require_once  $plugin_dir . 'lib/class-view-provider.php';
 require_once  $plugin_dir . 'lib/class-view.php';
+
+$callback = array(
+    '\glue\ErrorHandler',
+    'logger'
+);
+set_error_handler( $callback );
+
