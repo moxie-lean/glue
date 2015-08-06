@@ -56,7 +56,7 @@ class ViewUtil{
 	 * @param	string	$key		the name of the key in the asociative array.
 	 * @param	array	$options	asociative array where the callback is stored.
 	 */
-	private function call_option( $key = '', $options = array() ){
+	public function call_option( $key = '', $options = array() ){
 		if ( $this->it_has_callback($key, $options) ){
 			call_user_func( $options[ $key ] );
 		}
